@@ -81,6 +81,14 @@ spec:
             timeoutSeconds: 3
           resources:
             {{- toYaml .Values.engine.resources | nindent 12 }}
+          {{- if ne (len .Values.engine.extraVolumeMounts) 0 }}
+          volumeMounts:
+            {{ toYaml .Values.engine.extraVolumeMounts | indent 12 }}
+          {{- end }}
+      {{- if ne (len .Values.engine.extraVolumes) 0 }}
+      volumes:
+        {{ toYaml .Values.engine.extraVolumes | indent 8 }}
+      {{- end }}
       {{- with .Values.engine.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

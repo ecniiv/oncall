@@ -75,4 +75,12 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.celery.resources | nindent 12 }}
+	  {{- if ne (len .Values.celery.extraVolumeMounts) 0 }}
+	  volumeMounts:
+	    {{ toYaml .Values.celery.extraVolumeMounts | indent 12 }}
+	  {{- end }}
+      {{- if ne (len .Values.celery.extraVolumes) 0 }}
+      volumes:
+	{{ toYaml .Values.celery.extraVolumes | indent 8 }}
+      {{- end }}
 {{- end}}
